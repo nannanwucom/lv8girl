@@ -1,7 +1,6 @@
--- 使用已有数据库
 USE lv8girl;
 
--- 1. 创建用户表 users
+-- 2. 创建用户表 users
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -10,11 +9,26 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 2. 为 users 表添加头像字段（如果不存在）
-ALTER TABLE users 
-ADD COLUMN IF NOT EXISTS avatar VARCHAR(255) DEFAULT NULL;
+-- 3. 为 users 表添加头像字段（如果不存在）
+SET @col_exists := (
+    SELECT COUNT(*)
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = 'lv8girl_db'
+      AND TABLE_NAME = 'users'
+      AND COLUMN_NAME = 'avatar'
+);
 
--- 3. 创建讨论表 discussions
+SET @sql := IF(
+    @col_exists = 0,
+    'ALTER TABLE users ADD COLUMN avatar VARCHAR(255) DEFAULT NULL;',
+    'SELECT "avatar column already exists";'
+);
+
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- 4. 创建讨论表 discussions
 CREATE TABLE IF NOT EXISTS discussions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -25,7 +39,7 @@ CREATE TABLE IF NOT EXISTS discussions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 4. 创建评论表 comments
+-- 5. 创建评论表 comments
 CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     post_id INT NOT NULL,
@@ -36,7 +50,7 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 5. 创建点赞表 likes
+-- 6. 创建点赞表 likes（含联合唯一约束防止重复点赞）
 CREATE TABLE IF NOT EXISTS likes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     post_id INT NOT NULL,
