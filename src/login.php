@@ -329,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="text" name="login" placeholder="请输入用户名或邮箱" required value="<?php echo isset($_POST['login']) ? htmlspecialchars($_POST['login']) : ''; ?>">
                 </div>
                 <div class="form-group">
-                    <label>密码</label>
+                    <label>密码测试</label>
                     <input type="password" name="password" placeholder="请输入密码" required>
                 </div>
                 <div class="forgot-password">
@@ -352,4 +352,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     </script>
 </body>
+
 </html>
