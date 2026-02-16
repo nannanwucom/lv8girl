@@ -1,0 +1,19 @@
+  lv8girl:
+    image: ghcr.io/nannanwucom/lv8girl:latest
+    container_name: lv8girl
+    ports:
+      - 60009:80
+  db:
+    image: mysql:8.4.5
+    container_name: lv8girl-wordpress-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpasswd
+      MYSQL_DATABASE: lv8girl
+      MYSQL_USER: lv8girl
+      MYSQL_PASSWORD: yourpasswd
+    volumes:
+      - ./db:/var/lib/mysql
+    command:
+      - --mysql-native-password=on
+      - --bind-address=0.0.0.0
