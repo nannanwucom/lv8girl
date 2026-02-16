@@ -1153,16 +1153,15 @@ $username = $_SESSION['username'] ?? '';
 
         <!-- 底部 -->
         <footer class="footer">
-            <div><a href="https://icp.gov.moe/?keyword=20260911" target="_blank" style="text-decoration:none;color:red>萌ICP备20260911号</a></div>
-            <div class="footer-links">
-                <a href="#">关于</a>
-                <a href="#">帮助</a>
-                <a href="#">隐私</a>
-                <a href="#">投稿</a>
-            </div>
-            
-        </footer>
+    <div>© 2025 lv8girl · 绿坝娘二次元社区</div>
+    <div class="footer-links">
+        <a href="#">关于</a>
+        <a href="#">帮助</a>
+        <a href="#">隐私</a>
+        <a href="#">投稿</a>
+        <a href="https://icp.gov.moe/?keyword=20260911" target="_blank">萌ICP备20260911号</a>
     </div>
+</footer>
 
     <script>
         const themeToggle = document.getElementById('themeToggle');
@@ -1175,5 +1174,6 @@ $username = $_SESSION['username'] ?? '';
 </body>
 
 </html>
+
 
 
