@@ -1,7 +1,7 @@
 services:
   lv8girl:
+    container_name: lv8girl
     image: ghcr.io/mchappyfriskyo/lv8girl:main
-    container_name: lv8girl-nnw
     ports:
       - 127.0.0.1:60009:80
     depends_on:
@@ -9,10 +9,10 @@ services:
     volumes:
       - ./data:/var/www/html/uploads
   db:
+    container_name: lv8girl-db
     image: mysql:8
-    container_name: lv8girl-db-nnw
     environment:
-      MYSQL_ROOT_PASSWORD: rootpasswd
+      MYSQL_ROOT_PASSWORD: KQ9Yiq2devoxQxTvjuntLF
       MYSQL_DATABASE: lv8girl
       MYSQL_USER: lv8girl
       MYSQL_PASSWORD: yourpasswd
