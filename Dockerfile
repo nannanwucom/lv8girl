@@ -11,6 +11,9 @@ RUN apt-get update && \
     apt-get install -y nginx && \
     rm -rf /var/lib/apt/lists/*
 
+# 清空默认目录 
+RUN rm -rf /var/www/html/* \ && rm -rf /etc/nginx/modules-enabled/*
+
 # 复制 nginx 配置
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
