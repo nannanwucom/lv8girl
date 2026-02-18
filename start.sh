@@ -10,10 +10,8 @@ fi
 # 捕获停止信号，快速杀掉后台进程
 trap "kill -TERM $(jobs -p); exit 0" SIGTERM SIGINT
 
-# 启动 PHP-FPM 后台模式
-php-fpm
-
-# 启动 Nginx 后台模式
+# 后台启动 PHP-FPM 和 Nginx 
+php-fpm -D 
 nginx
 
 # 挂起等待，保持脚本为 PID 1
