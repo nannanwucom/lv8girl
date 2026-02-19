@@ -27,4 +27,4 @@ RUN chown -R www-data:www-data /var/www/html
 
 
 # Let supervisord start nginx & php-fpm
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["supervisord"]
